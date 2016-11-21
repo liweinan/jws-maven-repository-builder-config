@@ -1,0 +1,11 @@
+{
+  "artifact-sources": [
+    {
+      "type": "repository",
+      "repo-url": "tests/testrepo/"
+    }
+  ],
+  "multi-version-ga-patterns-ref": [
+    "mvgpr2"
+  ]
+}

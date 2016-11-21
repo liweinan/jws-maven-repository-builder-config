@@ -1,0 +1,9 @@
+{
+  "artifact-sources": [
+    {
+      "type": "repository",
+      "repo-url": "http://repo.maven.apache.org/maven2/",
+      "included-gav-patterns-ref": "config1r-patterns.list"
+    }
+  ]
+}

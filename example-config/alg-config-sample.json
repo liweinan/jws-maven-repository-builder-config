@@ -1,0 +1,60 @@
+{
+  "single-version": "false",
+  "include-high-priority": "",
+  "include-low-priority": "",
+  "artifact-sources": [
+    {
+      "type": "mead-tag",
+      "tag-name": "brms-5.3.0",
+      "koji-url": "http://brewhub.devel.redhat.com/brewhub/",
+      "download-root-url": "http://download.devel.redhat.com/brewroot/packages/",
+      "included-gav-patterns-ref": "gav-patterns.list"
+    },
+    {
+      "type": "dependency-list",
+      "recursive": "true",
+      "repo-url": [
+        "https://repository.jboss.org/nexus/content/repositories/public-jboss/"
+      ],
+      "top-level-gavs-ref": "top-level-gavs.list"
+    },
+    {
+      "type": "dependency-graph",
+      "indy-url": "http://indy-dev.app.eng.bos.redhat.com:8080/",
+      "source-key": "group:central+eap6+soa-brms-6-build",
+      "excluded-sources": [
+        "group:central+eap6"
+      ],
+	  "excluded-subgraphs": ["org.apache.ant:ant:1.8.0"],
+	  "excluded-subgraphs-ref": "excluded-gavs.list",
+      "wsid": "1",
+      "preset": "managed-sob-build",
+      "mutator": "NOP",
+      "top-level-gavs-ref": "top-level-gavs.list"
+    },
+    {
+      "type": "repository",
+      "repo-url": "https://repository-basic.engineering.redhat.com/nexus/content/repositories/scratch-release-soa-brms-6-build",
+      "included-gav-patterns-ref": "gav-patterns.list"
+    },
+    {
+      "type": "repository",
+      "repo-url": [
+        "https://repository.engineering.redhat.com/nexus/content/repositories/jboss-public/",
+        "file:///var/maven/repository/test-repo/"
+      ],
+      "included-gav-patterns-ref": "gav-patterns.list"
+    }
+  ],
+  "excluded-gav-patterns-ref": [
+    "gav-patterns-excl.list",
+    "gav-patterns-excl2.list"
+  ],
+  "excluded-repositories": [
+    "https://repository.engineering.redhat.com/nexus/content/repositories/central/",
+    "https://repository.engineering.redhat.com/nexus/content/repositories/jboss-public-snapshot/"
+  ],
+  "multi-version-ga-patterns-ref": [
+    "multi-version-ga-patterns.list"
+  ]
+}

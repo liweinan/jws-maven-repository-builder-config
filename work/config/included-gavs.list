@@ -1,0 +1,12 @@
+org.jboss:jboss-parent:14.0.0.redhat-1
+org.eclipse.jdt.core.compiler:ecj:4.4.2.redhat-1
+org.apache.tomcat.embed:tomcat-embed-core:8.0.36.redhat-14
+org.apache.tomcat.embed:tomcat-embed-el:8.0.36.redhat-14
+org.apache.tomcat.embed:tomcat-embed-jasper:8.0.36.redhat-14
+org.apache.tomcat.embed:tomcat-embed-logging-juli:8.0.36.redhat-14
+org.apache.tomcat.embed:tomcat-embed-websocket:8.0.36.redhat-14
+org.apache.tomcat.embed:tomcat-embed-core:7.0.70.redhat-13
+org.apache.tomcat.embed:tomcat-embed-el:7.0.70.redhat-13
+org.apache.tomcat.embed:tomcat-embed-jasper:7.0.70.redhat-13
+org.apache.tomcat.embed:tomcat-embed-logging-juli:7.0.70.redhat-13
+org.apache.tomcat.embed:tomcat-embed-websocket:7.0.70.redhat-13

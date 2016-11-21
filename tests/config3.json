@@ -1,0 +1,9 @@
+{
+  "single-version": "false",
+  "artifact-sources": [
+    {
+      "type": "repository",
+      "repo-url": "tests/testrepo/"
+    }
+  ]
+}

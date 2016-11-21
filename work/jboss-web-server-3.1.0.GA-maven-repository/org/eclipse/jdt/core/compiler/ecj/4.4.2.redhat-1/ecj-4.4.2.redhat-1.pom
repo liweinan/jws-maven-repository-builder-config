@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.jboss</groupId>
+    <artifactId>jboss-parent</artifactId>
+    <version>14.0.0.redhat-1</version>
+    <relativePath></relativePath>
+  </parent>
+
+  <groupId>org.eclipse.jdt.core.compiler</groupId>
+  <artifactId>ecj</artifactId>
+  <version>4.4.2.redhat-1</version>
+  <packaging>jar</packaging>
+
+  <name>Eclipse ECJ</name>
+  <description>Eclipse JDT Core Batch Compiler</description>
+  <url>http://www.eclipse.org/jdt/</url>
+  <inceptionYear>2004</inceptionYear>
+  <organization>
+    <name>Eclipse Foundation</name>
+    <url>http://eclipse.org/</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>Eclipse Public License v1.0</name>
+      <url>http://www.eclipse.org/org/documents/epl-v10.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <mailingLists>
+    <mailingList>
+      <name>jdt-core-dev</name>
+      <subscribe>https://dev.eclipse.org/mailman/listinfo/jdt-core-dev</subscribe>
+      <unsubscribe>https://dev.eclipse.org/mailman/listinfo/jdt-core-dev</unsubscribe>
+      <post>jdt-core-dev@eclipse.org</post>
+      <archive>http://dev.eclipse.org/mhonarc/lists/jdt-core-dev/</archive>
+    </mailingList>
+  </mailingLists>
+
+  <scm>
+    <connection>scm:git:git://git.eclipse.org/gitroot/jdt/eclipse.jdt.core.git</connection>
+    <url>http://git.eclipse.org/gitroot/jdt/eclipse.jdt.core.git</url>
+  </scm>
+  <issueManagement>
+    <system>Bugzilla</system>
+    <url>https://bugs.eclipse.org/bugs/enter_bug.cgi?component=Core&amp;product=JDT</url>
+  </issueManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <buildQualifier>v20150120-1634</buildQualifier>
+    <buildVersion>3.10.2</buildVersion>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.ant</groupId>
+        <artifactId>ant</artifactId>
+        <version>1.9.4</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.8</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.5</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>2.5.3</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-sources</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <target>
+                <delete dir="${project.build.sourceDirectory}"></delete>
+                <mkdir dir="${project.build.sourceDirectory}"></mkdir>
+                <copy todir="${project.build.sourceDirectory}" preservelastmodified="true">
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.compiler.apt/src">
+                    <include name="**/*.java"></include>
+                    <include name="**/package.html"></include>
+                  </fileset>
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.compiler.tool/src">
+                    <include name="**/*.java"></include>
+                    <include name="**/package.html"></include>
+                  </fileset>
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.core/antadapter">
+                    <include name="**/*.java"></include>
+                    <include name="**/package.html"></include>
+                    <exclude name="org/eclipse/jdt/core/BuildJarIndex.java"></exclude>
+                    <exclude name="org/eclipse/jdt/core/CheckDebugAttributes.java"></exclude>
+                  </fileset>
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.core/batch">
+                    <include name="**/*.java"></include>
+                    <include name="**/package.html"></include>
+                  </fileset>
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.core/compiler">
+                    <include name="**/*.java"></include>
+                    <include name="**/package.html"></include>
+                  </fileset>
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generate-resources</id>
+            <phase>generate-resources</phase>
+            <configuration>
+              <target>
+                <delete dir="${project.basedir}/src/main/resources"></delete>
+                <mkdir dir="${project.basedir}/src/main/resources"></mkdir>
+                <copy todir="${project.basedir}/src/main/resources" preservelastmodified="true">
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.compiler.tool/src">
+                    <include name="META-INF/services/javax.tools.JavaCompiler"></include>
+                  </fileset>
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.core/antadapter">
+                    <include name="org/eclipse/jdt/internal/antadapter/messages.properties"></include>
+                    <include name="META-INF/eclipse.inf"></include>
+                  </fileset>
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.core/batch">
+                    <include name="org/eclipse/jdt/internal/compiler/batch/messages.properties"></include>
+                  </fileset>
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.core/compiler">
+                    <include name="**/*.properties"></include>
+                    <include name="**/*.props"></include>
+                    <include name="**/*.rsc"></include>
+                  </fileset>
+                  <fileset dir="${project.basedir}/org.eclipse.jdt.core/scripts">
+                    <include name="about.html"></include>
+                    <include name="build.xml"></include>
+                    <include name="ecj.1"></include>
+                    <include name="binary/META-INF/MANIFEST.MF"></include>
+                    <include name="source/META-INF/MANIFEST.MF"></include>
+                  </fileset>
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>process-resources</id>
+            <phase>process-resources</phase>
+            <configuration>
+              <target>
+                <replace token="bundle_qualifier" value="${buildQualifier}" dir="${project.build.outputDirectory}" preserveLastModified="true">
+                  <include name="org/eclipse/jdt/internal/compiler/batch/messages.properties"></include>
+                </replace>
+                <replace token="bundle_version" value="${buildVersion}" dir="${project.build.outputDirectory}" preserveLastModified="true">
+                  <include name="org/eclipse/jdt/internal/compiler/batch/messages.properties"></include>
+                </replace>
+                <replace token="@BUILDQUALIFIER@" value="${buildQualifier}" dir="${project.build.outputDirectory}" preserveLastModified="true">
+                  <include name="binary/META-INF/MANIFEST.MF"></include>
+                  <include name="source/META-INF/MANIFEST.MF"></include>
+                </replace>
+                <replace token="@BUILDVERSION@" value="${buildVersion}" dir="${project.build.outputDirectory}" preserveLastModified="true">
+                  <include name="binary/META-INF/MANIFEST.MF"></include>
+                  <include name="source/META-INF/MANIFEST.MF"></include>
+                </replace>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <archive>
+                <manifestFile>${project.build.outputDirectory}/binary/META-INF/MANIFEST.MF</manifestFile>
+              </archive>
+              <excludes>
+                <exclude>build.xml</exclude>
+                <exclude>**/binary/**</exclude>
+                <exclude>**/source/**</exclude>
+              </excludes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <archive>
+                <manifestFile>${project.build.outputDirectory}/source/META-INF/MANIFEST.MF</manifestFile>
+              </archive>
+              <excludes>
+                <exclude>**/binary/**</exclude>
+                <exclude>**/source/**</exclude>
+              </excludes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>org.commonjava.maven.plugins</groupId>
+        <artifactId>project-sources-maven-plugin</artifactId>
+        <version>0.3</version>
+        <executions>
+          <execution>
+            <id>project-sources-archive</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>archive</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.redhat.rcm.maven.plugin</groupId>
+        <artifactId>buildmetadata-maven-plugin</artifactId>
+        <version>1.5.0</version>
+        <executions>
+          <execution>
+            <id>build-metadata</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>provide-buildmetadata</goal>
+            </goals>
+            <configuration>
+              <validateCheckout>false</validateCheckout>
+              <hideJavaOptsInfo>false</hideJavaOptsInfo>
+              <activateOutputFileMapping>false</activateOutputFileMapping>
+              <createXmlReport>false</createXmlReport>
+              <hideCommandLineInfo>false</hideCommandLineInfo>
+              <propertiesOutputFile>${basedir}/build.properties</propertiesOutputFile>
+              <createPropertiesReport>true</createPropertiesReport>
+              <addMavenExecutionInfo>true</addMavenExecutionInfo>
+              <addLocallyModifiedTagToFullVersion>false</addLocallyModifiedTagToFullVersion>
+              <addJavaRuntimeInfo>true</addJavaRuntimeInfo>
+              <hideMavenOptsInfo>false</hideMavenOptsInfo>
+              <addToGeneratedSources>false</addToGeneratedSources>
+              <forceNewProperties>true</forceNewProperties>
+            </configuration>
+          </execution>
+        </executions>
+        <inherited>false</inherited>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+<!-- Modified by POM Manipulation Extension for Maven 1.2 ( SHA: 1b41ed0f ) -->
+
