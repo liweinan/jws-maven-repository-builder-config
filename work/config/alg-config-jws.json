@@ -6,13 +6,6 @@
     {
       "type": "repository",
       "repo-url": [
-        "http://download-node-02.eng.bos.redhat.com/brewroot/repos/jws-3.1-rhel-7-build/latest/maven/"
-      ],
-      "included-gav-patterns-ref": "included-gavs.list"
-    },
-    {
-      "type": "repository",
-      "repo-url": [
         "http://download-node-02.eng.bos.redhat.com/brewroot/repos/jb-eap-7.0-rhel-7-maven-build/latest/maven/"
       ],
       "included-gav-patterns-ref": "included-gavs.list"
