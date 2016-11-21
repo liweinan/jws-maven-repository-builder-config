@@ -1,0 +1,1 @@
+# jws-maven-repository-builder-config
